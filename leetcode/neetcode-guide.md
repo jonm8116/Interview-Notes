@@ -103,3 +103,43 @@ def isValid(self, s:str) -> bool:
     return len(stack) == 0
 
 ```
+
+155. Min Stack
+
+- <strong>Strategy: Stacks</strong>
+- <strong>Time Complexity: N/A class design</strong>
+- To maintain the min stack we want to keep track of the minimum at each
+  level of the stack
+- so instead of pushing just the value on to the stack we push a dictionary of
+  both the current val and the minimum at that time
+- we also need to readjust the minimum whenever we pop
+
+```
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.curMin = 0
+
+    def push(self, val: int) -> None:
+        # if first item set cur min
+        if(len(self.stack) == 0):
+            self.curMin = val
+        else:
+            if(val < self.curMin):
+                self.curMin = val
+        item = {'val': val, 'curMin': self.curMin}
+        self.stack.append(item)
+
+    def pop(self) -> None:
+        ret = self.stack.pop()
+        if(len(self.stack) > 0):
+            self.curMin = self.stack[-1]['curMin']
+        return ret['val']
+
+    def top(self) -> int:
+        return self.stack[-1]['val']
+
+    def getMin(self) -> int:
+        return self.stack[-1]['curMin']
+```
