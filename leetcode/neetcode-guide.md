@@ -143,3 +143,26 @@ class MinStack:
     def getMin(self) -> int:
         return self.stack[-1]['curMin']
 ```
+
+## Singly Linked Lists
+
+206. Reverse a linked list
+
+- <strong>Strategy: recursion with two pointers</strong>
+
+
+```
+def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    return self.reverseListHelper(None, head)
+
+def reverseListHelper(self, prev: Optional[ListNode], current: Optional[ListNode]):
+    if(current == None):
+        return prev
+    else:
+        originalNext = current.next
+        current.next = prev
+        return self.reverseListHelper(current, originalNext)
+
+
+```
+
