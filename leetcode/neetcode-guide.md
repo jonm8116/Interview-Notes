@@ -156,12 +156,18 @@ def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
     return self.reverseListHelper(None, head)
 
 def reverseListHelper(self, prev: Optional[ListNode], current: Optional[ListNode]):
+    # iterate to end the of the list
+    # we return the prev ptr here because cur ptr will be pointing to null
+    # at the end of the list
     if(current == None):
         return prev
     else:
-        originalNext = current.next
-        current.next = prev
-        return self.reverseListHelper(current, originalNext)
+        tmpNext = current.next  # set tmp ref to the next part of list
+        current.next = prev     # this is where the reversal will happen but you will lose ref to iterate thru list that's why you keep the tmp ref
+
+        # in the recursive call we will use current as prev
+        # and the tmp next ref will be used as next current
+        return self.reverseListHelper(current, tmpNext)
 
 
 ```
