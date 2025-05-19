@@ -172,3 +172,31 @@ def reverseListHelper(self, prev: Optional[ListNode], current: Optional[ListNode
 
 ```
 
+## Trees
+
+94. Binary Tree Inorder Traversal
+
+- <strong>strategy: Inorder Traversal</strong>
+- Need to perform an inorder traversal and pass in an additional list to add the current node to during the traversal
+- easy way to remember traversals
+    - preorder: root, left, right
+    - inorder: left, root, right
+    - postorder: left, right, root
+
+```
+def inOrderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+
+    retList = []
+    self.inOrderTraversalHelper(root, retList)
+    return retList
+
+def inOrderTraversalHelper(self, root: Optional[TreeNode], retList: List[TreeNode]) -> List[int]:
+    if(root == None):
+        return
+    if(root.left):
+        self.inOrderTraversal(root.left, retList)
+    retList.append(root.val)
+    if(root.right):
+        self.inOrderTraversalHelper(root.right, retList)
+
+```
