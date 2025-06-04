@@ -200,3 +200,65 @@ def inOrderTraversalHelper(self, root: Optional[TreeNode], retList: List[TreeNod
         self.inOrderTraversalHelper(root.right, retList)
 
 ```
+
+102. Binary Tree Level Order Traversal
+
+- <strong>strategy: BFS</strong>
+- a BFS (at least for trees) requires two queues
+- a main queue and temporary queue
+- you will enqueue the current level's children into the temp queue and then copy that over to the main queue to start the next level
+
+```
+def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    if(root == None):
+        return []
+
+    levels = [[root.val]]
+    mainQueue = [root]
+    tempQueue = []
+
+    while(len(mainQueue) != 0):
+        item = mainQueue.pop(0)
+        if(item.left != None):
+            tempQueue.append(item.left)
+        if(item.right != None):
+            tempQueue.append(item.right)
+
+        if(len(mainQueue) == 0):
+            if(len(tempQueue) > 0):
+                levels.append([n.val for n in tempQueue])
+                mainQueue = tempQueue
+                tempQueue = []
+
+    return levels
+```
+
+199. Binary Tree Right Side View
+
+- <strong>strategy: BFS</strong>
+- use BFS but in each level just add the last element
+- this equates to the right most element at that level (depending how you traverse the tree)
+
+```
+def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    if(root == None):
+        return []
+
+    rightSide = [root.val]
+    mainQueue = [root]
+    tempQueue = []
+
+    while(len(mainQueue) != 0):
+        item = mainQueue.pop(0)
+        if(item.left != None):
+            tempQueue.append(item.left)
+        if(item.right != None):
+            tempQueue.append(item.right)
+        if( len(mainQueue) == 0 and
+            len(tempQueue) > 0):
+            rightSide.append(tempQueue[-1].val)
+            mainQueue = tempQueue
+            tempQueue
+
+    return rightSide
+```
